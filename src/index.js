@@ -24,7 +24,7 @@ export default class ServoController {
 	constructor(path, opts) {
 		opts = opts || {};
 		let baudrate = opts.baudrate || 115200;
-		this.conn = new SerialPort(path, {
+		this.conn = new SerialPort.SerialPort(path, {
 			baudrate: baudrate
 		});
 
