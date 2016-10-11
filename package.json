@@ -1,0 +1,33 @@
+{
+  "name": "lvserial",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "serialport": "^4.0.3"
+  },
+  "description": "Node module for servo motors which support LVSerial protocol provided by Vstone.",
+  "directories": {
+    "example": "example"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.1",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "mocha": "^2.5.3"
+  },
+  "scripts": {
+    "compile": "./node_modules/.bin/babel -d lib/ src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorikawa/lvserial.git"
+  },
+  "author": "Takahiro Horikawa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thorikawa/lvserial/issues"
+  },
+  "homepage": "https://github.com/thorikawa/lvserial#readme"
+}
