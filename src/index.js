@@ -29,7 +29,13 @@ export default class ServoController {
 		});
 
 		this.conn.on('data', function(data) {
-			console.log('data received: ' + data);
+			console.log('data received: ' + data.toString('hex'));
+			var res = 0;
+			for (var i = 0; i < data.length; i++) {
+				res += (data[i] << (7 * i));
+			}
+			console.log('dec:' + res);
+			console.log('hex:' + res.toString(16));
 		});
 		this.conn.on('open', opts.open || function(err) {});
 		this.conn.on('error', opts.error || function(err) {
@@ -210,24 +216,28 @@ class Servo {
 		this.controller.ramWrite(this.sid, 0x32, [newValue & 0x7f]);
 	}
 
+	setAlarmVoltage(voltageValue) {
+		this.controller.ramWrite(this.sid, 0x44, [voltageValue & 0x7f, (voltageValue >> 7) & 0x7f]);
+	}
+
 	getSid() {
 		this.controller.ramRead(this.sid, 0x08, 1);
-	}
-
-	getTemp() {
-		this.controller.ramRead(this.sid, 0x26, 2);
-	}
-
-	getSpeed() {
-		this.controller.ramRead(this.sid, 0x22, 2);
 	}
 
 	getPos() {
 		this.controller.ramRead(this.sid, 0x20, 2);
 	}
 
+	getSpeed() {
+		this.controller.ramRead(this.sid, 0x22, 2);
+	}
+
 	getBackEMF() {
 		this.controller.ramRead(this.sid, 0x24, 2);
+	}
+
+	getTemp() {
+		this.controller.ramRead(this.sid, 0x26, 2);
 	}
 
 	getVoltage() {
@@ -236,6 +246,34 @@ class Servo {
 
 	getIERR() {
 		this.controller.ramRead(this.sid, 0x2a, 2);
+	}
+
+	getPG() {
+		this.controller.ramRead(this.sid, 0x32, 1);
+	}
+
+	getDG() {
+		this.controller.ramRead(this.sid, 0x33, 1);
+	}
+
+	getEG() {
+		this.controller.ramRead(this.sid, 0x34, 1);
+	}
+
+	getPwmLimit() {
+		this.controller.ramRead(this.sid, 0x3c, 1);
+	}
+
+	getPwmOut() {
+		this.controller.ramRead(this.sid, 0x3e, 2);
+	}
+
+	getVibOth() {
+		this.controller.ramRead(this.sid, 0x48, 1);
+	}
+
+	getVibSth() {
+		this.controller.ramRead(this.sid, 0x49, 1);
 	}
 
 	reset() {
